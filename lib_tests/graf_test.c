@@ -2,7 +2,7 @@
 // Created by David Bors on 14.05.2021.
 //
 #include <stdio.h>
-#include "graf.h"
+#include "../libs/graf.h"
 
 int main()
 {

@@ -2,8 +2,8 @@
 // Created by David Bors on 14.05.2021.
 //
 #include <stdio.h>
-#include "list.h"
-#include "strvector.h"
+#include "../libs/list.h"
+#include "../libs/strvector.h"
 
 int main()
 {
