@@ -40,6 +40,7 @@ int main()
 //    free(g);
       graf *g = init(0);
     citire1(g, "test.in");
+    free(g);
 //    citire1("test.in");
     return 0;
 }
