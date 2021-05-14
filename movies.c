@@ -74,6 +74,7 @@ graf *init(int n)
     graf *new = (graf*)malloc(sizeof (graf));
     new->n = n;
     new->m = 0;
+    new->nsize = 1000;
     if(n > 1000)
         new->nsize = 2000;
     new->noduri = (char**) malloc(sizeof (char*) * new->nsize);
