@@ -13,6 +13,7 @@ typedef struct mc
 typedef struct graf
 {
    int n, m;
+   int nsize, msize;
    char **noduri;
    mc *muchii;
 } graf;
@@ -73,10 +74,13 @@ graf *init(int n)
     graf *new = (graf*)malloc(sizeof (graf));
     new->n = n;
     new->m = 0;
-    new->noduri = (char**) malloc(sizeof (char*) * n);
-    for(i = 0; i < n; i++)
+    if(n > 1000)
+        new->nsize = 2000;
+    new->noduri = (char**) malloc(sizeof (char*) * new->nsize);
+    for(i = 0; i < new->nsize; i++)
         new->noduri[i] = (char*) malloc(255);
-    new->muchii = (mc*)malloc(sizeof (mc));
+    new->msize = 1000;
+    new->muchii = (mc*)malloc(sizeof (mc) * new->msize);
     return new;
 }
 
@@ -85,7 +89,7 @@ void free_graf(graf *g)
     int i;
     free(g->muchii);
     g->muchii = NULL;
-    for(i = 0; i < g->n; i++)
+    for(i = 0; i < g->nsize; i++)
     {
         free(g->noduri[i]);
         g->noduri[i] = NULL;
@@ -99,8 +103,16 @@ void free_graf(graf *g)
 graf *add_node(graf *g, char *node_name)
 {
     g->n++;
-    g->noduri = realloc(g->noduri, g->n * sizeof (char*));
-    g->noduri[g->n-1] = malloc(255);
+    if(g->n == g->nsize)
+    {
+        g->nsize *= 2;
+        g->noduri = realloc(g->noduri, g->nsize * sizeof(char *));
+        int i;
+        for(i = g->n; i < g->nsize; i++)
+            g->noduri[i] = (char*)malloc(255);
+    }
+    if(g->noduri)
+        exit(2);
     strcpy(g->noduri[g->n-1], node_name);
     return g;
 }
@@ -113,7 +125,13 @@ graf *add_edge(graf *g, int i, int j)
         return g;
     }
     g->m++;
-    g->muchii = realloc(g->muchii, g->m * sizeof (mc));
+    if(g->m == g->msize)
+    {
+        g->msize *= 2;
+        g->muchii = realloc(g->muchii, g->msize * sizeof (mc));
+    }
+    if(g->muchii)
+        exit(2);
     g->muchii[g->m-1].i = i;
     g->muchii[g->m-1].j = j;
     return g;
