@@ -4,19 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-typedef struct mc
-{
-  int i, j;
-}mc;
-
-typedef struct graf
-{
-   int n, m;
-   int nsize, msize;
-   char **noduri;
-   mc *muchii;
-} graf;
+#include "list.h"
 
 void citire1(char*);
 
