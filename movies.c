@@ -3,67 +3,41 @@
 //
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-typedef struct graf {
-    int n;
-    int **mat;
+typedef struct mc
+{
+  int i, j;
+}mc;
+
+typedef struct graf
+{
+   int n, m;
+   char **noduri;
+   mc *muchii;
 } graf;
 
-graf *init(int n)
-{
-    graf *new = (graf*)malloc(sizeof(graf));
-    new->n = n;
-    new->mat = (int**)calloc(n, sizeof(int*));
-    for(int i = 0; i < n; i++)
-        new->mat[i] = (int*)calloc(n, sizeof(int));
-    return new;
-}
+graf *init(int);
+void free_graf(graf*);
+graf *add_node(graf*, char*);
+graf *add_edge(graf*, int, int);
 
-void free_graf(graf *g)
+void citire1(char*);
+
+int main()
 {
-    for(int i = 0; i < g->n; i++)
-    {
-        free(g->mat[i]);
-        g->mat[i] = NULL;
-    }
-    free(g->mat);
-    g->mat = NULL;
+    graf *g = init(5);
+    g = add_node(g, "actor1");
+    g = add_node(g, "actor2");
+    g = add_node(g, "actor3");
+    g = add_node(g, "actor4");
+    g = add_node(g, "actor5");
+    g = add_edge(g, 0, 2);
+    g = add_edge(g, 0, 3);
+    g = add_edge(g, 1, 2);
+    g = add_edge(g, 4, 5);
     free(g);
-    g = NULL;
-}
-
-void add_edge(graf *g, int i, int j)
-{
-    g->mat[i-1][j-1] = 0;
-}
-
-void del_edge(graf *g, int i, int j)
-{
-    g->mat[i-1][j-1] = 0;
-}
-
-int in_degree(graf *g, int i)
-{
-    i--;
-    int counter = 0;
-    for(int j = 0; j < g->n; j++)
-        counter += g->mat[j][i];
-    return counter;
-
-}
-
-int ext_degree(graf *g, int i)
-{
-    i--;
-    int counter = 0;
-    for(int j = 0; j < g->n; j++)
-        counter += g->mat[i][j];
-    return counter;
-}
-
-int arc(graf *g, int i, int j)
-{
-    if(g->mat[i][j])    return 1;
+//    citire1("test.in");
     return 0;
 }
 
@@ -93,15 +67,54 @@ void citire1(char *filename)
     fclose(in);
 }
 
-int main()
+graf *init(int n)
 {
-    graf *g = init(5);
-    add_edge(g, 1, 2);
-    add_edge(g, 1, 3);
-    add_edge(g, 2, 4);
-    add_edge(g, 2, 5);
-    add_edge(g, 4, 5);
-    add_edge(g, 4, 1);
-    free_graf(g);
-    return 0;
+    int i;
+    graf *new = (graf*)malloc(sizeof (graf));
+    new->n = n;
+    new->m = 0;
+    new->noduri = (char**) malloc(sizeof (char*) * n);
+    for(i = 0; i < n; i++)
+        new->noduri[i] = (char*) malloc(255);
+    new->muchii = (mc*)malloc(sizeof (mc));
+    return new;
+}
+
+void free_graf(graf *g)
+{
+    int i;
+    free(g->muchii);
+    g->muchii = NULL;
+    for(i = 0; i < g->n; i++)
+    {
+        free(g->noduri[i]);
+        g->noduri[i] = NULL;
+    }
+    free(g->noduri);
+    g->noduri = NULL;
+    free(g);
+    g = NULL;
+}
+
+graf *add_node(graf *g, char *node_name)
+{
+    g->n++;
+    g->noduri = realloc(g->noduri, g->n * sizeof (char*));
+    g->noduri[g->n-1] = malloc(255);
+    strcpy(g->noduri[g->n-1], node_name);
+    return g;
+}
+
+graf *add_edge(graf *g, int i, int j)
+{
+    if(i > g->n || j > g->n)
+    {
+        printf("eroare: nu exista atatea noduri.\n");
+        return g;
+    }
+    g->m++;
+    g->muchii = realloc(g->muchii, g->m * sizeof (mc));
+    g->muchii[g->m-1].i = i;
+    g->muchii[g->m-1].j = j;
+    return g;
 }
