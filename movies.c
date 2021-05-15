@@ -12,6 +12,7 @@ int main()
 {
     graf *g = init_graf();
     citire1(g, "test.in");
+    destroy_graf(g);
     return 0;
 }
 
