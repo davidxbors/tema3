@@ -45,6 +45,7 @@ void citire1(char *filename)
         // adauga in graf
         vector_print(aux);
         printf("\n");
+        destroy_vector(aux);
 
        // elibereaza memorie odata ce nu mai am nevoie de ea
         free(nume_film);
