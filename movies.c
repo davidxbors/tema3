@@ -6,15 +6,16 @@
 #include <string.h>
 #include "libs/graf.h"
 
-void citire1(char*);
+void citire1(graf*, char*);
 
 int main()
 {
-    citire1("test.in");
+    graf *g = init_graf();
+    citire1(g, "test.in");
     return 0;
 }
 
-void citire1(char *filename)
+void citire1(graf *g, char *filename)
 {
     FILE *in = fopen(filename, "r");
     int nr_filme;
@@ -43,9 +44,27 @@ void citire1(char *filename)
         --nr_filme;
 
         // adauga in graf
-        vector_print(aux);
+        vector *vix = aux;
+        int *ix = (int*)malloc(nr_actori * sizeof (int));
+        int k = 0;
+        while(vix)
+        {
+            int ret = is_in_vector(g->noduri, vix->data);
+            if(ret != -1)
+            {
+                ix[k++] = ret;
+            } else
+            {
+                g = add_node(g, vix->data);
+                ret = is_in_vector(g->noduri, vix->data);
+                ix[k++] = ret;
+            }
+            vix = vix->next;
+        }
+        vector_print(g->noduri);
         printf("\n");
         destroy_vector(aux);
+        free(ix);
 
        // elibereaza memorie odata ce nu mai am nevoie de ea
         free(nume_film);
