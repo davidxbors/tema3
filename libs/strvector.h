@@ -85,7 +85,7 @@ void destroy_vector(vector *head)
         head = head->next;
         to_destroy->back = NULL;
         to_destroy->next = NULL;
-//        free(to_destroy->data);
+        free(to_destroy->data);
         to_destroy->data = NULL;
         free(to_destroy);
         to_destroy = NULL;
