@@ -45,6 +45,7 @@ void citire1(graf *g, char *filename)
         --nr_filme;
 
         // adauga in graf
+        // adauga noile noduri citite
         vector *vix = aux;
         int *ix = (int*)malloc(nr_actori * sizeof (int));
         int k = 0;
@@ -62,13 +63,28 @@ void citire1(graf *g, char *filename)
             }
             vix = vix->next;
         }
+
+        /// debug
         vector_print(g->noduri);
         printf("\n");
-        destroy_vector(aux);
-        free(ix);
+
+        // adauga noile muchii citite
+        for(i = 0; i < nr_actori-1; i++)
+        {
+            for(j = i+1; j < nr_actori; j++)
+                if(!is_in_list(g->muchii, ix[i], ix[j]))
+                    g = add_edge(g, ix[i], ix[j]);
+        }
+
+        /// debug
+        list_print(g->muchii);
+        printf("\n");
+
 
        // elibereaza memorie odata ce nu mai am nevoie de ea
         free(nume_film);
+        destroy_vector(aux);
+        free(ix);
     }
     fclose(in);
 }

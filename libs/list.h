@@ -62,6 +62,18 @@ void list_print(mc *head)
     }
 }
 
+short int is_in_list(mc *head, int i, int j)
+{
+    mc *ix = head;
+    while(ix)
+    {
+        if(ix->i == i && ix->j == j)
+            return 1;
+        ix = ix->next;
+    }
+    return 0;
+}
+
 // elibereaza memoria ocupata de lista
 void destroy_list(mc *head)
 {

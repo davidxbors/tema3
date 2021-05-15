@@ -15,6 +15,9 @@ int main()
     muchii = append_list(muchii, 3, 5);
     muchii = append_list(muchii, 2, 5);
     list_print(muchii);
+    printf("muchia 1,2 : %d; muchia 2,3: %d; muchia 2,5: %d; muchia 2,4: %d\n",
+           is_in_list(muchii, 1, 2), is_in_list(muchii, 2, 3), is_in_list(muchii, 2, 5),
+           is_in_list(muchii, 2, 4));
     destroy_list(muchii);
     vector *noduri = NULL;
     noduri = append_string(noduri, "actor1");
