@@ -22,6 +22,9 @@ int main()
     noduri = append_string(noduri, "actor3");
     noduri = append_string(noduri, "actor4");
     noduri = append_string(noduri, "actor5");
+    printf("actor2: %d;\n actor1: %d;\n actor5: %d;\n actor6: %d\n",
+           is_in_vector(noduri, "actor2"), is_in_vector(noduri, "actor1"),
+           is_in_vector(noduri, "actor5"), is_in_vector(noduri, "actor6"));
     vector_print(noduri);
     destroy_vector(noduri);
     return 0;

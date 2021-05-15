@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #endif
 
+#include <string.h>
+
 typedef struct vector
 {
     // data
@@ -23,7 +25,8 @@ typedef struct vector
 vector *init_vector(char *data)
 {
     vector *new = (vector *)malloc(sizeof(vector));
-    new->data = data;
+    new->data = (char*)malloc(sizeof(data));
+    strcpy(new->data, data);
     new->next = NULL;
     new->back = NULL;
     return new;
@@ -57,6 +60,20 @@ void vector_print(vector *head)
         printf("%s ", head->data);
         head = head->next;
     }
+}
+
+int is_in_vector(vector *head, char *data)
+{
+    int counter = 0;
+    vector *i = head;
+    while(i)
+    {
+        if(!strcmp(i->data, data))
+            return counter;
+        counter++;
+        i = i->next;
+    }
+    return -1;
 }
 
 // elibereaza memoria ocupata de vector
