@@ -43,6 +43,11 @@ graf *add_edge(graf *g, int i, int j)
     return g;
 }
 
+void bfs(graf *g, int i, int j)
+{
+    bfs(g->)
+}
+
 void destroy_graf(graf *g)
 {
     destroy_vector(g->noduri);
