@@ -7,11 +7,11 @@
 #include "queue.h"
 #include "strvector.h"
 
-vector *bfs(graf *g, int root, int *visited, int *counter)
+vector *bfs(graf *g, int root, int *visited, int *counter, vector *productie)
 {
     *counter = 0;
     Queue *q = NULL;
-    vector *productie = NULL;
+    productie = NULL;
     q = enqueue(q, root);
     while (!is_empty(q))
     {

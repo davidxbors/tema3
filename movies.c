@@ -17,14 +17,17 @@ int main(int argc, char *argv[])
     /// rezolva cerinta
     int i, nr;
     int *visited = (int*) calloc(g->n, sizeof (int));
+    vector *productie = NULL;
     for(i = 0; i < g->n; i++)
     {
         if(!visited[i])
         {
-            vector *productie = bfs(g, i, visited, &nr);
+            productie = bfs(g, i, visited, &nr, productie);
             printf("%d\n", nr);
             vector_print(productie);
             printf("\n");
+            destroy_vector(productie);
+            productie = NULL;
         }
     }
     /// debug
