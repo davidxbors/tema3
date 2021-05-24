@@ -22,8 +22,10 @@ int main(int argc, char *argv[])
     /// rezolva cerinta
     int i, nr;
     int *visited = (int*) calloc(g->n, sizeof (int));
-    vector *productie = NULL;
-    vector *productie_max = NULL;
+//    vector *productie = NULL;
+//    vector *productie_max = NULL;
+    bst_node *productie = NULL;
+    bst_node *productie_max = NULL;
     int max = INT_MIN;
 
     for(i = 0; i < g->n; i++)
@@ -39,7 +41,7 @@ int main(int argc, char *argv[])
             if(nr > max)
 	    {
 		    max = nr;
-		    destroy_vector(productie_max);
+		    destroy_bst(productie_max);
 		    productie_max = productie;
 	    } else 
 	    {
@@ -48,7 +50,7 @@ int main(int argc, char *argv[])
 	    }
         }
     }
-
+/*
     char **prod = (char**) malloc(max * sizeof(char*));
     vector *counter = productie_max;
     for(i = 0; i < max; i++)
@@ -70,7 +72,11 @@ int main(int argc, char *argv[])
     for(i = 0; i < max; i++)
 	    fprintf(out, "%s\n", prod[i]);
     fclose(out);
-    
+  */
+    FILE *out = fopen(argv[3], "w");
+    fprintf(out, "%d\n", max);
+    inorder(productie_max, out);
+    fclose(out);
     /// debug
 //    vector_print(g->noduri);
 //    printf("\n");

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "../libs/graf.h"
 #include "../libs/util.h"
+#include "../libs/bst.h"
 
 int main()
 {
@@ -37,20 +38,35 @@ int main()
 //    printf("\n");
 //    printf("%d\n", is_edge(g, 0,2));
 //    printf("%d %d\n", g->n, g->m);
-    int i, nr;
-    int *visited = (int*) calloc(g->n, sizeof (int));
-    vector *productie = NULL;
-    for(i = 0; i < g->n; i++)
-    {
-        if(!visited[i])
-        {
-            productie = bfs(g, i, visited, &nr);
-            printf("%d\n", nr);
-            vector_print(productie);
-            printf("\n");
-        }
-    }
+//    int i, nr;
+//    int *visited = (int*) calloc(g->n, sizeof (int));
+//    vector *productie = NULL;
+//    for(i = 0; i < g->n; i++)
+//    {
+//        if(!visited[i])
+//        {
+//            productie = bfs(g, i, visited, &nr);
+//            printf("%d\n", nr);
+//            vector_print(productie);
+//            printf("\n");
+//        }
+//    }
 
     destroy_graf(g);
+
+    bst_node *bst = NULL;
+    bst = insert(bst, "thomas bors");
+    bst = insert(bst, "david bors");
+    bst = insert(bst, "albert craciun");
+    bst = insert(bst, "taisia coconu");
+//    bst = insert(bst, 50);
+//    insert(bst, 30);
+//    insert(bst, 20);
+//    insert(bst, 40);
+//    insert(bst, 70);
+//    insert(bst, 60);
+//    insert(bst, 80);
+    inorder(bst);
+    destroy_bst(bst);
     return 0;
 }

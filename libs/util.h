@@ -6,8 +6,9 @@
 #define TEMA3_UTIL_H
 #include "queue.h"
 #include "strvector.h"
+#include "bst.h"
 
-vector *bfs(graf *g, int root, int *visited, int *counter, vector *productie)
+bst_node *bfs(graf *g, int root, int *visited, int *counter, bst_node *productie)
 {
     *counter = 0;
     Queue *q = NULL;
@@ -19,7 +20,7 @@ vector *bfs(graf *g, int root, int *visited, int *counter, vector *productie)
         q = dequeue(q);
         if(!visited[l]) {
             ++(*counter);
-            productie = append_string(productie, v_string(g->noduri, l));
+            productie = insert(productie, v_string(g->noduri, l));
             // marcheaza nodul ca vizitat
             visited[l] = 1;
             // gaseste toate legaturile nevizitate deja
