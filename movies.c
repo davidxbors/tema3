@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "libs/graf.h"
+#include "libs/queue.h"
+#include "libs/util.h"
 
 void citire1(graf*, char*);
 
@@ -12,15 +14,28 @@ int main()
 {
     graf *g = init_graf();
     citire1(g, "test.in");
-
+    /// rezolva cerinta
+    int i, nr;
+    int *visited = (int*) calloc(g->n, sizeof (int));
+    for(i = 0; i < g->n; i++)
+    {
+        if(!visited[i])
+        {
+            vector *productie = bfs(g, i, visited, &nr);
+            printf("%d\n", nr);
+            vector_print(productie);
+            printf("\n");
+        }
+    }
     /// debug
-    vector_print(g->noduri);
-    printf("\n");
-    list_print(g->muchii);
-    printf("\n");
+//    vector_print(g->noduri);
+//    printf("\n");
+//    list_print(g->muchii);
+//    printf("\n");
 
     // elibereaza memorie
     destroy_graf(g);
+    free(visited);
     return 0;
 }
 

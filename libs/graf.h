@@ -43,9 +43,16 @@ graf *add_edge(graf *g, int i, int j)
     return g;
 }
 
-void bfs(graf *g, int i, int j)
+int is_edge(graf *g, int i, int j)
 {
-    bfs(g->)
+    mc *counter = g->muchii;
+    while(counter)
+    {
+        if((counter->i == i && counter->j == j) || (counter->j == i && counter->i == j))
+            return 1;
+        counter = counter->next;
+    }
+    return 0;
 }
 
 void destroy_graf(graf *g)

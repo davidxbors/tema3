@@ -29,6 +29,9 @@ int main()
            is_in_vector(noduri, "actor2"), is_in_vector(noduri, "actor1"),
            is_in_vector(noduri, "actor5"), is_in_vector(noduri, "actor6"));
     vector_print(noduri);
+    printf("\n");
+    printf("%s", v_string(noduri, 0));
+    printf("\n");
     destroy_vector(noduri);
     return 0;
 }

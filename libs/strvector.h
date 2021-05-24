@@ -76,6 +76,18 @@ int is_in_vector(vector *head, char *data)
     return -1;
 }
 
+char *v_string(vector *head, int k)
+{
+    while(head && k)
+    {
+        --k;
+        head = head->next;
+    }
+    if(k && !head)
+        exit(2);
+    return head->data;
+}
+
 // elibereaza memoria ocupata de vector
 void destroy_vector(vector *head)
 {
