@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 #include "libs/graf.h"
 #include "libs/queue.h"
 #include "libs/util.h"
@@ -16,6 +17,8 @@ int main(int argc, char *argv[])
     citire1(g, argv[2]);
     /// rezolva cerinta
     int i, nr;
+    int max = INT_MIN;
+    vector *productie_max = NULL;
     int *visited = (int*) calloc(g->n, sizeof (int));
     vector *productie = NULL;
     for(i = 0; i < g->n; i++)
@@ -26,10 +29,20 @@ int main(int argc, char *argv[])
             printf("%d\n", nr);
             vector_print(productie);
             printf("\n");
-            destroy_vector(productie);
-            productie = NULL;
+
+            if(max < nr)
+            {
+                max = nr;
+                destroy_vector(productie_max);
+                productie_max = productie;
+            } else {
+                destroy_vector(productie);
+                productie = NULL;
+            }
         }
     }
+    vector_print(productie_max);
+    printf("\n");
     /// debug
 //    vector_print(g->noduri);
 //    printf("\n");
@@ -39,6 +52,7 @@ int main(int argc, char *argv[])
     // elibereaza memorie
     destroy_graf(g);
     free(visited);
+    destroy_vector(productie);
     return 0;
 }
 
