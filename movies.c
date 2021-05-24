@@ -10,10 +10,10 @@
 
 void citire1(graf*, char*);
 
-int main()
+int main(int argc, char *argv[])
 {
     graf *g = init_graf();
-    citire1(g, "test.in");
+    citire1(g, argv[2]);
     /// rezolva cerinta
     int i, nr;
     int *visited = (int*) calloc(g->n, sizeof (int));
