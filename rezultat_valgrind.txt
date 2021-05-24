@@ -1,7 +1,0 @@
-==2084818== 256 (48 direct, 208 indirect) bytes in 2 blocks are definitely lost in loss record 3 of 3
-==2084818==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==2084818==    by 0x109484: init_vector (in /home/student/tema3/movies)
-==2084818==    by 0x1094F0: append_string (in /home/student/tema3/movies)
-==2084818==    by 0x109A90: bfs (in /home/student/tema3/movies)
-==2084818==    by 0x109C1D: main (in /home/student/tema3/movies)
-==2084818== 

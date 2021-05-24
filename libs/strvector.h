@@ -25,7 +25,7 @@ typedef struct vector
 vector *init_vector(char *data)
 {
     vector *new = (vector *)malloc(sizeof(vector));
-    new->data = (char*)malloc(sizeof(data));
+    new->data = (char*)malloc(250 * sizeof(char));
     strcpy(new->data, data);
     new->next = NULL;
     new->back = NULL;

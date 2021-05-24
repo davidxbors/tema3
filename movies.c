@@ -4,11 +4,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 #include "libs/graf.h"
 #include "libs/queue.h"
 #include "libs/util.h"
 
 void citire1(graf*, char*);
+
+int compare (const void * a, const void * b ) {
+  return strcmp(*(char **)a, *(char **)b);
+}
 
 int main(int argc, char *argv[])
 {
@@ -18,18 +23,54 @@ int main(int argc, char *argv[])
     int i, nr;
     int *visited = (int*) calloc(g->n, sizeof (int));
     vector *productie = NULL;
+    vector *productie_max = NULL;
+    int max = INT_MIN;
+
     for(i = 0; i < g->n; i++)
     {
         if(!visited[i])
         {
             productie = bfs(g, i, visited, &nr, productie);
-            printf("%d\n", nr);
+            /*
+	    printf("%d\n", nr);
             vector_print(productie);
             printf("\n");
-            destroy_vector(productie);
-            productie = NULL;
+	    */
+            if(nr > max)
+	    {
+		    max = nr;
+		    destroy_vector(productie_max);
+		    productie_max = productie;
+	    } else 
+	    {
+//	    	destroy_vector(productie);
+		productie = NULL;
+	    }
         }
     }
+
+    char **prod = (char**) malloc(max * sizeof(char*));
+    vector *counter = productie_max;
+    for(i = 0; i < max; i++)
+    {
+	    prod[i] = (char*) malloc(250 * sizeof(char));
+	    strcpy(prod[i], counter->data);
+	    counter = counter->next;
+    }
+    qsort(prod, max, sizeof(char*), compare);
+
+
+    FILE *out = fopen(argv[3], "w");
+    if(out == NULL)
+    {
+	    perror("file open gives err\n");
+	    return 2;
+    }
+    fprintf(out, "%d\n", max);
+    for(i = 0; i < max; i++)
+	    fprintf(out, "%s\n", prod[i]);
+    fclose(out);
+    
     /// debug
 //    vector_print(g->noduri);
 //    printf("\n");
@@ -37,8 +78,8 @@ int main(int argc, char *argv[])
 //    printf("\n");
 
     // elibereaza memorie
-    destroy_graf(g);
-    free(visited);
+    //destroy_graf(g);
+    //free(visited);
     return 0;
 }
 
@@ -98,9 +139,9 @@ void citire1(graf *g, char *filename)
         }
 
        // elibereaza memorie odata ce nu mai am nevoie de ea
-        free(nume_film);
-        destroy_vector(aux);
-        free(ix);
+        //free(nume_film);
+        //destroy_vector(aux);
+        //free(ix);
     }
     // inchide fisierul din care am citit
     fclose(in);
